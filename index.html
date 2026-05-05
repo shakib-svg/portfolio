@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shakib Youssef – Signal Processing &amp; Deep Learning</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800;900&family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- NAV -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <span class="nav-logo">SY<span class="dot">.</span></span>
+      <ul class="nav-links">
+        <li><a href="#about">À propos</a></li>
+        <li><a href="#education">Formation</a></li>
+        <li><a href="#experience">Expérience</a></li>
+        <li><a href="#projects">Projets</a></li>
+        <li><a href="#publications">Publications</a></li>
+        <li><a href="#skills">Compétences</a></li>
+        <li><a href="#contact" class="nav-cta">Contact</a></li>
+      </ul>
+      <button class="burger" id="burger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="mobile-menu" id="mobile-menu">
+    <ul>
+      <li><a href="#about" class="mm-link">À propos</a></li>
+      <li><a href="#education" class="mm-link">Formation</a></li>
+      <li><a href="#experience" class="mm-link">Expérience</a></li>
+      <li><a href="#projects" class="mm-link">Projets</a></li>
+      <li><a href="#publications" class="mm-link">Publications</a></li>
+      <li><a href="#skills" class="mm-link">Compétences</a></li>
+      <li><a href="#contact" class="mm-link">Contact</a></li>
+    </ul>
+  </div>
+
+  <!-- HERO -->
+  <header id="hero">
+    <div class="hero-content">
+      <p class="hero-tag reveal"><span class="tag-chip">Élève-Ingénieur &middot; ENSTA Paris &middot; IFP Énergies Nouvelles</span></p>
+      <h1 class="hero-name reveal">Shakib<br><span class="accent">Youssef</span></h1>
+      <p class="hero-sub reveal">Traitement du Signal &amp; Deep Learning<br>Détection d'anomalies &middot; Vision par ordinateur &middot; IA de confiance</p>
+      <div class="hero-actions reveal">
+        <a href="#publications" class="btn-primary">Publications</a>
+        <a href="#contact" class="btn-ghost">Me contacter</a>
+        <a href="Shakib_YOUSSEF_Cv.pdf" class="btn-ghost" download><i class="fas fa-download"></i>&nbsp; CV</a>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </header>
+
+  <!-- ABOUT -->
+  <section id="about" class="section">
+    <div class="section-inner">
+      <div class="section-label reveal">01 — À propos</div>
+      <div class="bio-grid">
+        <div class="bio-text reveal">
+          <p>Bonjour ! Je suis <strong>Shakib Youssef</strong>, élève-ingénieur en dernière année à l'<strong>ENSTA – Institut Polytechnique de Paris</strong>, spécialisé en <strong>Conception des Systèmes Numériques</strong>.</p>
+          <p>Actuellement en stage de fin d'études à <strong>IFP Énergies Nouvelles</strong> (Lyon), je travaille sur la détection d'anomalies non supervisée dans des séries temporelles industrielles, via des méthodes de vision par ordinateur (GAF/MTF, autoencodeurs convolutifs, GradCAM, LRP).</p>
+          <p>Je recherche une <strong>thèse CIFRE à partir d'octobre 2026</strong> dans les domaines de la détection d'anomalies, l'analyse de signaux audio/vocaux, l'imagerie et les architectures neuronales pour l'IA de confiance.</p>
+        </div>
+        <div class="bio-stats reveal">
+          <div class="stat-card">
+            <span class="stat-num">ENSTA</span>
+            <span class="stat-label">Institut Polytechnique de Paris</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-num">IFPEN</span>
+            <span class="stat-label">IFP Énergies Nouvelles — Lyon</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-num">2</span>
+            <span class="stat-label">Publications internationales</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-num">TOEIC</span>
+            <span class="stat-label">940 / 990</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education" class="section section-alt">
+    <div class="section-inner">
+      <div class="section-label reveal">02 — Formation</div>
+      <h2 class="section-title reveal">Parcours académique</h2>
+      <div class="timeline">
+        <div class="timeline-item reveal">
+          <div class="tl-marker"></div>
+          <div class="tl-date">2024 — Présent</div>
+          <div class="tl-content">
+            <h3>3ème année — Élève-ingénieur</h3>
+            <p class="tl-org">ENSTA – Institut Polytechnique de Paris</p>
+            <p class="tl-desc">Spécialisation : Conception des Systèmes Numériques (CSN)</p>
+          </div>
+        </div>
+        <div class="timeline-item reveal">
+          <div class="tl-marker"></div>
+          <div class="tl-date">2021 — 2024</div>
+          <div class="tl-content">
+            <h3>Licence en Technologie &amp; Sciences</h3>
+            <p class="tl-org">Université Libanaise</p>
+            <p class="tl-desc">Génie des Réseaux Informatiques et Télécommunications</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience" class="section">
+    <div class="section-inner">
+      <div class="section-label reveal">03 — Expérience</div>
+      <h2 class="section-title reveal">Parcours professionnel</h2>
+      <div class="timeline">
+        <div class="timeline-item reveal">
+          <div class="tl-marker accent-marker"></div>
+          <div class="tl-date">Mars 2026 — Présent</div>
+          <div class="tl-content">
+            <h3>Vision par ordinateur &amp; IA pour la détection d'anomalies <span class="role-badge">Stage PFE</span></h3>
+            <p class="tl-org">IFP Énergies Nouvelles — Lyon</p>
+            <p class="tl-desc">Développement de modèles de détection d'anomalies à partir de séries temporelles (GAF, MTF, autoencodeurs, CNN). Validation sur données synthétiques (Tennessee Eastman Process) et données réelles de pilotes industriels.</p>
+            <div class="tag-list">
+              <span class="tag">PyTorch</span>
+              <span class="tag">GAF / MTF</span>
+              <span class="tag">Autoencoder</span>
+              <span class="tag">GradCAM</span>
+              <span class="tag">LRP</span>
+            </div>
+          </div>
+        </div>
+        <div class="timeline-item reveal">
+          <div class="tl-marker accent-marker"></div>
+          <div class="tl-date">Mai — Sept. 2025</div>
+          <div class="tl-content">
+            <h3>Capteurs de profondeur &amp; IA pour l'estimation de pose <span class="role-badge">Stage</span></h3>
+            <p class="tl-org">Ivanae Medical / LaTIM — Brest</p>
+            <p class="tl-desc">Évaluation comparative et intégration de caméras de profondeur pour un dispositif médical de suivi respiratoire. Optimisation de modèles d'estimation de pose (OpenPose, ViTPose, BlazePose).</p>
+            <div class="tag-list">
+              <span class="tag">MediaPipe</span>
+              <span class="tag">OpenPose</span>
+              <span class="tag">ViTPose</span>
+              <span class="tag">OpenCV</span>
+            </div>
+          </div>
+        </div>
+        <div class="timeline-item reveal">
+          <div class="tl-marker accent-marker"></div>
+          <div class="tl-date">Déc. 2023 — Juin 2024</div>
+          <div class="tl-content">
+            <h3>Détection de plaques d'immatriculation</h3>
+            <p class="tl-org">RODOK SARL</p>
+            <p class="tl-desc">Pipeline de prétraitement d'images et détection/reconnaissance de plaques via YOLOv8.</p>
+            <div class="tag-list">
+              <span class="tag">YOLOv8</span>
+              <span class="tag">OCR</span>
+              <span class="tag">Python</span>
+            </div>
+          </div>
+        </div>
+        <div class="timeline-item reveal">
+          <div class="tl-marker accent-marker"></div>
+          <div class="tl-date">Mai — Août 2023</div>
+          <div class="tl-content">
+            <h3>Système d'IA pour la santé</h3>
+            <p class="tl-org">Together for Chehim</p>
+            <p class="tl-desc">Classification de pathologies cardiaques à partir de signaux ECG. Mise en production d'un prototype de prédiction sur données patients réelles.</p>
+            <div class="tag-list">
+              <span class="tag">ECG</span>
+              <span class="tag">Classification</span>
+              <span class="tag">TensorFlow</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" class="section section-alt">
+    <div class="section-inner">
+      <div class="section-label reveal">04 — Projets</div>
+      <h2 class="section-title reveal">Projets académiques &amp; personnels</h2>
+      <div class="projects-grid">
+        <div class="project-card reveal">
+          <div class="project-icon"><i class="fas fa-brain"></i></div>
+          <h3>ExpMedIa — Explicabilité en imagerie médicale</h3>
+          <p class="project-period">ENSTA · Sept. 2025 – Mars 2026</p>
+          <p>Développement et analyse de modèles deep learning (CheXNet, PYLON) pour l'imagerie médicale. Explicabilité via Grad-CAM, Grad-CAM++, LRP et Integrated Gradients.</p>
+          <div class="tag-list">
+            <span class="tag">XAI</span>
+            <span class="tag">Grad-CAM</span>
+            <span class="tag">LRP</span>
+          </div>
+        </div>
+        <div class="project-card reveal">
+          <div class="project-icon"><i class="fas fa-microscope"></i></div>
+          <h3>Segmentation de tumeurs cérébrales</h3>
+          <p class="project-period">Projet personnel · Déc. 2024 – Juil. 2025</p>
+          <p>Modèle Transformers U-Net pour la segmentation de tumeurs cérébrales sur IRM multimodales (WT, TC, ET).</p>
+          <div class="tag-list">
+            <span class="tag">Transformers</span>
+            <span class="tag">U-Net</span>
+            <span class="tag">IRM</span>
+          </div>
+        </div>
+        <div class="project-card reveal">
+          <div class="project-icon"><i class="fas fa-video"></i></div>
+          <h3>Surveillance multi-caméras</h3>
+          <p class="project-period">ENSTA · Sept. 2024 – Mai 2025</p>
+          <p>Système de détection d'objets via flux vidéo multi-caméras. Pipeline YOLOv10 + DeepSORT pour la détection et le suivi temps réel.</p>
+          <div class="tag-list">
+            <span class="tag">YOLOv10</span>
+            <span class="tag">DeepSORT</span>
+            <span class="tag">Temps réel</span>
+          </div>
+        </div>
+        <div class="project-card reveal">
+          <div class="project-icon"><i class="fas fa-wave-square"></i></div>
+          <h3>Interface cerveau–ordinateur (BCI)</h3>
+          <p class="project-period">Université Libanaise · Mars – Juil. 2024</p>
+          <p>Algorithmes de traitement EEG pour réduire le bruit et améliorer l'extraction des caractéristiques. Optimisation de modèles ML sur données EEG.</p>
+          <div class="tag-list">
+            <span class="tag">EEG</span>
+            <span class="tag">BCI</span>
+            <span class="tag">ML</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PUBLICATIONS -->
+  <section id="publications" class="section">
+    <div class="section-inner">
+      <div class="section-label reveal">05 — Recherche</div>
+      <h2 class="section-title reveal">Publications</h2>
+      <div class="pub-list">
+        <a href="https://doi.org/10.1109/ICABME66883.2025.11211811" target="_blank" rel="noopener" class="pub-card reveal">
+          <div class="pub-meta">
+            <span class="pub-year">2025</span>
+            <span class="pub-venue">ICABME '25 · IEEE</span>
+          </div>
+          <h3 class="pub-title">Evaluating the Impact of EMD-Derived Intrinsic Mode Functions on Atrial Fibrillation Detection</h3>
+          <p class="pub-authors">H. Serhal, R. Saab, T. Abdallah, <strong>S. Youssef</strong> and A. H. Chehade</p>
+          <div class="pub-arrow"><i class="fas fa-arrow-up-right-from-square"></i></div>
+        </a>
+        <a href="https://doi.org/10.1109/ETECOM66111.2025.11319010" target="_blank" rel="noopener" class="pub-card reveal">
+          <div class="pub-meta">
+            <span class="pub-year">2025</span>
+            <span class="pub-venue">ETECOM '25 · IEEE</span>
+          </div>
+          <h3 class="pub-title">A Data-Augmented Deep Hybrid Model for Atrial Fibrillation Detection</h3>
+          <p class="pub-authors">H. Serhal, R. Saab, <strong>S. Youssef</strong>, T. Abdallah, A. H. Chehade and M. Abdallah</p>
+          <div class="pub-arrow"><i class="fas fa-arrow-up-right-from-square"></i></div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" class="section section-alt">
+    <div class="section-inner">
+      <div class="section-label reveal">06 — Compétences</div>
+      <h2 class="section-title reveal">Stack technique</h2>
+      <div class="skills-grid reveal">
+        <div class="skill-group">
+          <h3><i class="fas fa-code"></i> Programmation</h3>
+          <div class="tag-list">
+            <span class="tag">Python</span>
+            <span class="tag">Java</span>
+            <span class="tag">JavaScript</span>
+            <span class="tag">C / C++</span>
+            <span class="tag">C#</span>
+            <span class="tag">LaTeX</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3><i class="fas fa-robot"></i> IA &amp; Vision</h3>
+          <div class="tag-list">
+            <span class="tag">PyTorch</span>
+            <span class="tag">TensorFlow</span>
+            <span class="tag">MediaPipe</span>
+            <span class="tag">OpenCV</span>
+            <span class="tag">YOLO</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3><i class="fas fa-chart-line"></i> Traitement des données</h3>
+          <div class="tag-list">
+            <span class="tag">NumPy</span>
+            <span class="tag">Pandas</span>
+            <span class="tag">Matplotlib</span>
+            <span class="tag">scikit-learn</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3><i class="fas fa-toolbox"></i> Outils</h3>
+          <div class="tag-list">
+            <span class="tag">Git / GitHub</span>
+            <span class="tag">VS Code</span>
+            <span class="tag">Linux</span>
+            <span class="tag">Docker</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3><i class="fas fa-language"></i> Langues</h3>
+          <div class="tag-list">
+            <span class="tag">Français (B2)</span>
+            <span class="tag">Anglais (TOEIC 940)</span>
+            <span class="tag">Arabe (natif)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="section contact-section">
+    <div class="section-inner contact-inner">
+      <div class="section-label reveal">07 — Contact</div>
+      <h2 class="section-title reveal">Travaillons ensemble.</h2>
+      <p class="contact-sub reveal">Ouvert aux collaborations, discussions de recherche &amp; thèses CIFRE.</p>
+      <div class="contact-links reveal">
+        <a href="mailto:shakib.youssef@outlook.com" class="contact-link">
+          <i class="fas fa-envelope"></i><span>shakib.youssef@outlook.com</span>
+        </a>
+        <a href="https://www.linkedin.com/in/ShakibYoussef" target="_blank" rel="noopener" class="contact-link">
+          <i class="fab fa-linkedin"></i><span>LinkedIn</span>
+        </a>
+        <a href="https://github.com/shakib-svg" target="_blank" rel="noopener" class="contact-link">
+          <i class="fab fa-github"></i><span>GitHub</span>
+        </a>
+        <a href="tel:+33752929344" class="contact-link">
+          <i class="fas fa-phone"></i><span>07 52 92 93 44</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <span class="nav-logo">SY<span class="dot">.</span></span>
+      <p>&copy; 2026 Shakib Youssef — ENSTA Paris &middot; IFPEN Lyon</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
