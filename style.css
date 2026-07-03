@@ -450,6 +450,33 @@ html[lang="ar"] .btn { letter-spacing: 0; font-family: 'IBM Plex Sans Arabic', s
   padding: 1.2rem 1.35rem 1.4rem;
   box-shadow: var(--shadow);
 }
+.panel-photo {
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-block-end: 1.1rem;
+  border: 1px solid var(--border-soft);
+  box-shadow: var(--shadow-sm);
+}
+.panel-photo::after {
+  /* thin accent baseline, like a scan line under the ID photo */
+  content: '';
+  position: absolute;
+  inset-block-end: 0;
+  inset-inline: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--alarm));
+}
+html[dir="rtl"] .panel-photo::after { background: linear-gradient(-90deg, var(--accent), var(--alarm)); }
+.panel-photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  transition: transform .6s cubic-bezier(.22, 1, .36, 1);
+}
+.hero-panel:hover .panel-photo img { transform: scale(1.03); }
 .panel-head {
   display: flex;
   align-items: center;
