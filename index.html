@@ -1,360 +1,551 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" dir="ltr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Shakib Youssef – Signal Processing &amp; Deep Learning</title>
+
+  <!-- Security -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+
+  <!-- SEO -->
+  <title>Shakib Youssef — Signal Processing, Deep Learning & Trustworthy AI</title>
+  <meta name="description" content="Shakib Youssef — Engineering student at ENSTA Paris specializing in signal processing, deep learning, computer vision, anomaly detection, and trustworthy AI. Seeking a CIFRE PhD from October 2026.">
+  <meta name="keywords" content="Shakib Youssef, ENSTA Paris, signal processing, deep learning, computer vision, anomaly detection, explainable AI, trustworthy AI, medical AI, CIFRE, IFP Energies Nouvelles">
+  <meta name="author" content="Shakib Youssef">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Shakib Youssef — Signal Processing, Deep Learning & Trustworthy AI">
+  <meta property="og:description" content="Engineering student at ENSTA Paris. Anomaly detection, computer vision, explainable AI. Seeking a CIFRE PhD from October 2026.">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:locale:alternate" content="ar_LB">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Shakib Youssef — Signal Processing & Deep Learning">
+  <meta name="twitter:description" content="Anomaly detection · Computer vision · Explainable & trustworthy AI · ENSTA Paris">
+
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800;900&family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,600&family=Source+Sans+3:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <canvas id="bg-canvas"></canvas>
+  <a class="skip-link" href="#about" data-i18n="skip">Aller au contenu</a>
 
-  <!-- NAV -->
-  <nav id="navbar">
+  <!-- Ambient neural background -->
+  <canvas id="bg-canvas" aria-hidden="true"></canvas>
+
+  <!-- ══════════ NAV ══════════ -->
+  <nav id="navbar" aria-label="Navigation principale">
     <div class="nav-inner">
-      <span class="nav-logo">Sh.Y<span class="dot">.</span></span>
+      <a href="#hero" class="nav-logo" aria-label="Shakib Youssef — haut de page">Sh<span class="dot">·</span>Y</a>
+
       <ul class="nav-links">
-        <li><a href="#about">À propos</a></li>
-        <li><a href="#education">Formation</a></li>
-        <li><a href="#experience">Expérience</a></li>
-        <li><a href="#projects">Projets</a></li>
-        <li><a href="#publications">Publications</a></li>
-        <li><a href="#skills">Compétences</a></li>
-        <li><a href="#contact" class="nav-cta">Contact</a></li>
+        <li><a href="#about"          data-i18n="nav.about">À propos</a></li>
+        <li><a href="#education"      data-i18n="nav.education">Formation</a></li>
+        <li><a href="#experience"     data-i18n="nav.experience">Expérience</a></li>
+        <li><a href="#projects"       data-i18n="nav.projects">Projets</a></li>
+        <li><a href="#publications"   data-i18n="nav.publications">Publications</a></li>
+        <li><a href="#skills"         data-i18n="nav.skills">Compétences</a></li>
+        <li><a href="#certifications" data-i18n="nav.certifications">Certifications</a></li>
+        <li><a href="#contact"        data-i18n="nav.contact">Contact</a></li>
       </ul>
-      <button class="burger" id="burger" aria-label="Menu">
-        <span></span><span></span><span></span>
-      </button>
+
+      <div class="nav-tools">
+        <div class="lang-switch" role="group" aria-label="Choix de langue" data-i18n-attr="aria-label:lang.groupLabel">
+          <button class="lang-btn" data-lang="fr" aria-label="Français"><span class="lang-flag">🇫🇷</span>FR</button>
+          <button class="lang-btn" data-lang="en" aria-label="English"><span class="lang-flag">🇬🇧</span>EN</button>
+          <button class="lang-btn" data-lang="ar" aria-label="العربية"><span class="lang-flag">🇱🇧</span>ع</button>
+        </div>
+        <a href="Shakib_YOUSSEF_Cv.pdf" class="nav-cv" download data-i18n-attr="aria-label:nav.cvAria">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <span data-i18n="nav.cv">CV</span>
+        </a>
+        <button class="burger" id="burger" aria-label="Menu" aria-expanded="false" aria-controls="mobile-menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
     </div>
   </nav>
 
   <div class="mobile-menu" id="mobile-menu">
     <ul>
-      <li><a href="#about" class="mm-link">À propos</a></li>
-      <li><a href="#education" class="mm-link">Formation</a></li>
-      <li><a href="#experience" class="mm-link">Expérience</a></li>
-      <li><a href="#projects" class="mm-link">Projets</a></li>
-      <li><a href="#publications" class="mm-link">Publications</a></li>
-      <li><a href="#skills" class="mm-link">Compétences</a></li>
-      <li><a href="#contact" class="mm-link">Contact</a></li>
+      <li><a href="#about"          class="mm-link" data-i18n="nav.about">À propos</a></li>
+      <li><a href="#education"      class="mm-link" data-i18n="nav.education">Formation</a></li>
+      <li><a href="#experience"     class="mm-link" data-i18n="nav.experience">Expérience</a></li>
+      <li><a href="#projects"       class="mm-link" data-i18n="nav.projects">Projets</a></li>
+      <li><a href="#publications"   class="mm-link" data-i18n="nav.publications">Publications</a></li>
+      <li><a href="#skills"         class="mm-link" data-i18n="nav.skills">Compétences</a></li>
+      <li><a href="#certifications" class="mm-link" data-i18n="nav.certifications">Certifications</a></li>
+      <li><a href="#contact"        class="mm-link" data-i18n="nav.contact">Contact</a></li>
+      <li><a href="Shakib_YOUSSEF_Cv.pdf" class="mm-link mm-cv" download><span data-i18n="hero.cta.cv">Télécharger le CV</span></a></li>
     </ul>
+    <div class="lang-switch mm-lang" role="group" aria-label="Choix de langue" data-i18n-attr="aria-label:lang.groupLabel">
+      <button class="lang-btn" data-lang="fr" aria-label="Français"><span class="lang-flag">🇫🇷</span>FR</button>
+      <button class="lang-btn" data-lang="en" aria-label="English"><span class="lang-flag">🇬🇧</span>EN</button>
+      <button class="lang-btn" data-lang="ar" aria-label="العربية"><span class="lang-flag">🇱🇧</span>ع</button>
+    </div>
   </div>
 
-  <!-- HERO -->
+  <!-- ══════════ HERO ══════════ -->
   <header id="hero">
-    <div class="hero-content">
-      <p class="hero-tag reveal"><span class="tag-chip">Élève-Ingénieur &middot; ENSTA Paris &middot; IFP Énergies Nouvelles</span></p>
-      <h1 class="hero-name reveal">Shakib<br><span class="accent">Youssef</span></h1>
-      <p class="hero-sub reveal">Traitement du Signal &amp; Deep Learning<br>Détection d'anomalies &middot; Vision par ordinateur &middot; IA de confiance</p>
-      <div class="hero-actions reveal">
-        <a href="#publications" class="btn-primary">Publications</a>
-        <a href="#contact" class="btn-ghost">Me contacter</a>
-        <a href="Shakib_YOUSSEF_Cv.pdf" class="btn-ghost" download><i class="fas fa-download"></i>&nbsp; CV</a>
+    <div class="hero-inner">
+      <div class="hero-main">
+        <p class="hero-status reveal">
+          <span class="pulse-dot" aria-hidden="true"></span>
+          <span data-i18n="hero.status">Recherche une thèse CIFRE — octobre 2026</span>
+        </p>
+
+        <h1 class="hero-name reveal" data-i18n="hero.name">Shakib<br><em>Youssef</em></h1>
+
+        <p class="hero-headline reveal" data-i18n="hero.headline">Traitement du signal &amp; deep learning pour une IA de confiance</p>
+        <p class="hero-sub reveal" data-i18n="hero.sub">Élève-ingénieur en dernière année à l'ENSTA — Institut Polytechnique de Paris. Je conçois des systèmes de détection d'anomalies, de vision par ordinateur et d'IA explicable, du signal brut à la décision interprétable.</p>
+
+        <div class="hero-actions reveal">
+          <a href="#projects"      class="btn btn-primary" data-i18n="hero.cta.projects">Voir les projets</a>
+          <a href="#publications"  class="btn btn-ghost"   data-i18n="hero.cta.publications">Publications</a>
+          <a href="Shakib_YOUSSEF_Cv.pdf" class="btn btn-ghost" download data-i18n="hero.cta.cv">Télécharger le CV</a>
+          <a href="#contact"       class="btn btn-ghost"   data-i18n="hero.cta.contact">Me contacter</a>
+        </div>
+      </div>
+
+      <!-- Profile intelligence panel -->
+      <aside class="hero-panel reveal" aria-label="Domaines d'expertise" data-i18n-attr="aria-label:hero.panel.aria">
+        <div class="panel-head">
+          <span class="mono" data-i18n="hero.panel.title">PROFIL · DOMAINES</span>
+          <span class="panel-led" aria-hidden="true"></span>
+        </div>
+        <ul class="panel-domains">
+          <li><span class="d-bar" style="--w:96%"></span><span data-i18n="hero.panel.d1">Traitement du signal</span></li>
+          <li><span class="d-bar" style="--w:94%"></span><span data-i18n="hero.panel.d2">Deep learning</span></li>
+          <li><span class="d-bar" style="--w:92%"></span><span data-i18n="hero.panel.d3">Vision par ordinateur</span></li>
+          <li><span class="d-bar" style="--w:90%"></span><span data-i18n="hero.panel.d4">Détection d'anomalies</span></li>
+          <li><span class="d-bar" style="--w:86%"></span><span data-i18n="hero.panel.d5">IA explicable (XAI)</span></li>
+          <li><span class="d-bar" style="--w:84%"></span><span data-i18n="hero.panel.d6">IA médicale</span></li>
+        </ul>
+      </aside>
+    </div>
+
+    <!-- Signature: live anomaly-detection signal monitor -->
+    <div class="signal-monitor reveal" aria-hidden="true">
+      <div class="monitor-head mono">
+        <span><span class="mh-led"></span><span data-i18n="monitor.channel">SIG-01 · SÉRIE TEMPORELLE · TEMPS RÉEL</span></span>
+        <span class="mh-right" data-i18n="monitor.model">MODÈLE : AUTOENCODEUR · SEUIL ±2σ</span>
+      </div>
+      <canvas id="signal-canvas"></canvas>
+      <div class="monitor-legend mono">
+        <span><i class="lg-swatch lg-nominal"></i><span data-i18n="monitor.nominal">signal nominal</span></span>
+        <span><i class="lg-swatch lg-anomaly"></i><span data-i18n="monitor.anomaly">anomalie détectée</span></span>
+        <span><i class="lg-swatch lg-threshold"></i><span data-i18n="monitor.threshold">seuil de reconstruction</span></span>
       </div>
     </div>
-    <div class="hero-scroll">
-      <span>Scroll</span>
+
+    <div class="hero-scroll" aria-hidden="true">
+      <span class="mono" data-i18n="hero.scroll">défiler</span>
       <div class="scroll-line"></div>
     </div>
   </header>
 
-  <!-- ABOUT -->
+  <main>
+
+  <!-- ══════════ ABOUT ══════════ -->
   <section id="about" class="section">
     <div class="section-inner">
-      <div class="section-label reveal">01 — À propos</div>
+      <div class="section-label mono reveal"><span class="ch">CH·01</span><span data-i18n="about.label">À PROPOS</span></div>
+      <h2 class="section-title reveal" data-i18n="about.title">Du signal brut à la décision interprétable</h2>
+
       <div class="bio-grid">
         <div class="bio-text reveal">
-          <p>Bonjour ! Je suis <strong>Shakib Youssef</strong>, élève-ingénieur en dernière année à l'<strong>ENSTA – Institut Polytechnique de Paris</strong>, spécialisé en <strong>Conception des Systèmes Numériques</strong>.</p>
-          <p>Actuellement en stage de fin d'études à <strong>IFP Énergies Nouvelles</strong> (Lyon), je travaille sur la détection d'anomalies non supervisée dans des séries temporelles industrielles, via des méthodes de vision par ordinateur (GAF/MTF, autoencodeurs convolutifs, GradCAM, LRP).</p>
+          <p data-i18n="about.p1">Je suis <strong>Shakib Youssef</strong>, élève-ingénieur en dernière année à l'<strong>ENSTA — Institut Polytechnique de Paris</strong>, spécialisé en <strong>Conception des Systèmes Numériques</strong> : traitement du signal, deep learning et architectures neuronales.</p>
+          <p data-i18n="about.p2">Actuellement en stage de fin d'études chez <strong>IFP Énergies Nouvelles</strong> (Lyon), je développe des méthodes de <strong>détection d'anomalies non supervisée</strong> sur séries temporelles industrielles : encodage signal-vers-image (GAF, MTF), autoencodeurs convolutifs, et explicabilité par Grad-CAM et LRP.</p>
+          <p data-i18n="about.p3">Mes travaux se situent à l'intersection du <strong>signal</strong> (audio, vocal, ECG, EEG), de l'<strong>imagerie</strong> (médicale, industrielle) et de l'<strong>IA de confiance</strong>. Je recherche une <strong>thèse CIFRE à partir d'octobre 2026</strong> pour approfondir ces axes entre recherche académique et impact industriel.</p>
         </div>
+
         <div class="bio-stats reveal">
           <div class="stat-card">
             <span class="stat-num">ENSTA</span>
-            <span class="stat-label">Institut Polytechnique de Paris</span>
+            <span class="stat-label" data-i18n="about.s1">Institut Polytechnique de Paris</span>
           </div>
           <div class="stat-card">
             <span class="stat-num">IFPEN</span>
-            <span class="stat-label">IFP Énergies Nouvelles — Lyon</span>
+            <span class="stat-label" data-i18n="about.s2">IFP Énergies Nouvelles — Lyon</span>
           </div>
           <div class="stat-card">
             <span class="stat-num">2</span>
-            <span class="stat-label">Publications internationales</span>
+            <span class="stat-label" data-i18n="about.s3">Publications IEEE</span>
           </div>
           <div class="stat-card">
-            <span class="stat-num">TOEIC</span>
-            <span class="stat-label">940 / 990</span>
+            <span class="stat-num">940<span class="stat-den">/990</span></span>
+            <span class="stat-label" data-i18n="about.s4">TOEIC — Anglais</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-num">4</span>
+            <span class="stat-label" data-i18n="about.s5">Expériences R&amp;D en IA</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-num">3</span>
+            <span class="stat-label" data-i18n="about.s6">Langues de travail</span>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- EDUCATION -->
+  <!-- ══════════ EDUCATION ══════════ -->
   <section id="education" class="section section-alt">
     <div class="section-inner">
-      <div class="section-label reveal">02 — Formation</div>
-      <h2 class="section-title reveal">Parcours académique</h2>
+      <div class="section-label mono reveal"><span class="ch">CH·02</span><span data-i18n="edu.label">FORMATION</span></div>
+      <h2 class="section-title reveal" data-i18n="edu.title">Parcours académique</h2>
+
       <div class="timeline">
         <div class="timeline-item reveal">
           <div class="tl-marker"></div>
-          <div class="tl-date">2024 — Présent</div>
+          <div class="tl-date mono" data-i18n="edu.e1.date">Août 2024 — Présent</div>
           <div class="tl-content">
-            <h3>3ème année — Élève-ingénieur</h3>
-            <p class="tl-org">ENSTA – Institut Polytechnique de Paris</p>
-            <p class="tl-desc">Spécialisation : Conception des Systèmes Numériques (CSN)</p>
+            <h3 data-i18n="edu.e1.role">Diplôme d'ingénieur — Conception des Systèmes Numériques</h3>
+            <p class="tl-org" data-i18n="edu.e1.org">ENSTA — Institut Polytechnique de Paris · France</p>
+            <p class="tl-desc" data-i18n="edu.e1.desc">Spécialisation en systèmes numériques : traitement du signal, deep learning, systèmes embarqués et architectures logicielles.</p>
           </div>
         </div>
         <div class="timeline-item reveal">
           <div class="tl-marker"></div>
-          <div class="tl-date">2021 — 2024</div>
+          <div class="tl-date mono" data-i18n="edu.e2.date">Sept. 2021 — Juin 2024</div>
           <div class="tl-content">
-            <h3>Licence en Technologie &amp; Sciences</h3>
-            <p class="tl-org">Université Libanaise</p>
-            <p class="tl-desc">Génie des Réseaux Informatiques et Télécommunications</p>
+            <h3 data-i18n="edu.e2.role">Licence en Technologie et Sciences</h3>
+            <p class="tl-org" data-i18n="edu.e2.org">Université Libanaise · Liban</p>
+            <p class="tl-desc" data-i18n="edu.e2.desc">Génie des réseaux informatiques et télécommunications — fondements du signal, des réseaux et de la programmation.</p>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- EXPERIENCE -->
+  <!-- ══════════ EXPERIENCE ══════════ -->
   <section id="experience" class="section">
     <div class="section-inner">
-      <div class="section-label reveal">03 — Expérience</div>
-      <h2 class="section-title reveal">Parcours professionnel</h2>
+      <div class="section-label mono reveal"><span class="ch">CH·03</span><span data-i18n="exp.label">EXPÉRIENCE</span></div>
+      <h2 class="section-title reveal" data-i18n="exp.title">Parcours professionnel</h2>
+
       <div class="timeline">
+
         <div class="timeline-item reveal">
-          <div class="tl-marker accent-marker"></div>
-          <div class="tl-date">Mars 2026 — Présent</div>
+          <div class="tl-marker tl-live"></div>
+          <div class="tl-date mono" data-i18n="exp.e1.date">Mars 2026 — Présent</div>
           <div class="tl-content">
-            <h3>Vision par ordinateur &amp; IA pour la détection d'anomalies <span class="role-badge">Stage PFE</span></h3>
-            <p class="tl-org">IFP Énergies Nouvelles — Lyon</p>
-            <p class="tl-desc">Développement de modèles de détection d'anomalies à partir de séries temporelles (GAF, MTF, autoencodeurs, CNN). Validation sur données synthétiques (Tennessee Eastman Process) et données réelles de pilotes industriels.</p>
+            <h3><span data-i18n="exp.e1.role">Vision par ordinateur &amp; IA pour la détection d'anomalies</span> <span class="role-badge" data-i18n="exp.badge.pfe">Stage de fin d'études</span></h3>
+            <p class="tl-org" data-i18n="exp.e1.org">IFP Énergies Nouvelles · Lyon, France</p>
+            <ul class="tl-bullets">
+              <li data-i18n="exp.e1.b1">Développement de modèles de détection d'anomalies sur séries temporelles industrielles par encodage signal-vers-image (GAF, MTF), autoencodeurs convolutifs et CNN.</li>
+              <li data-i18n="exp.e1.b2">Validation des approches sur données synthétiques (Tennessee Eastman Process) et données réelles de pilotes industriels.</li>
+              <li data-i18n="exp.e1.b3">Explicabilité des détections au niveau capteur via Grad-CAM et Layer-wise Relevance Propagation (LRP).</li>
+            </ul>
             <div class="tag-list">
-              <span class="tag">PyTorch</span>
-              <span class="tag">GAF / MTF</span>
-              <span class="tag">Autoencoder</span>
-              <span class="tag">GradCAM</span>
-              <span class="tag">LRP</span>
+              <span class="tag">PyTorch</span><span class="tag">GAF / MTF</span><span class="tag">Autoencoders</span><span class="tag">CNN</span><span class="tag">Grad-CAM</span><span class="tag">LRP</span>
             </div>
           </div>
         </div>
+
         <div class="timeline-item reveal">
-          <div class="tl-marker accent-marker"></div>
-          <div class="tl-date">Mai — Sept. 2025</div>
+          <div class="tl-marker"></div>
+          <div class="tl-date mono" data-i18n="exp.e2.date">Mai 2025 — Sept. 2025</div>
           <div class="tl-content">
-            <h3>Capteurs de profondeur &amp; IA pour l'estimation de pose <span class="role-badge">Stage</span></h3>
-            <p class="tl-org">Ivanae Medical / LaTIM — Brest</p>
-            <p class="tl-desc">Évaluation comparative et intégration de caméras de profondeur pour un dispositif médical de suivi respiratoire. Optimisation de modèles d'estimation de pose (OpenPose, ViTPose, BlazePose).</p>
+            <h3><span data-i18n="exp.e2.role">Capteurs de profondeur &amp; IA pour l'estimation de pose</span> <span class="role-badge" data-i18n="exp.badge.intern">Stage</span></h3>
+            <p class="tl-org" data-i18n="exp.e2.org">Ivanae Medical / LaTIM · Brest, France</p>
+            <ul class="tl-bullets">
+              <li data-i18n="exp.e2.b1">Évaluation comparative et intégration de caméras de profondeur au sein d'un dispositif médical de suivi respiratoire.</li>
+              <li data-i18n="exp.e2.b2">Optimisation et adaptation de modèles d'estimation de pose (OpenPose, ViTPose, BlazePose) pour la précision et la robustesse en conditions réelles.</li>
+            </ul>
             <div class="tag-list">
-              <span class="tag">MediaPipe</span>
-              <span class="tag">OpenPose</span>
-              <span class="tag">ViTPose</span>
-              <span class="tag">OpenCV</span>
+              <span class="tag">OpenPose</span><span class="tag">ViTPose</span><span class="tag">BlazePose</span><span class="tag">MediaPipe</span><span class="tag">OpenCV</span>
             </div>
           </div>
         </div>
+
         <div class="timeline-item reveal">
-          <div class="tl-marker accent-marker"></div>
-          <div class="tl-date">Déc. 2023 — Juin 2024</div>
+          <div class="tl-marker"></div>
+          <div class="tl-date mono" data-i18n="exp.e3.date">Déc. 2023 — Juin 2024</div>
           <div class="tl-content">
-            <h3>Détection de plaques d'immatriculation <span class="role-badge">Stage</span></h3>
-            <p class="tl-org">RODOK SARL</p>
-            <p class="tl-desc">Pipeline de prétraitement d'images et détection/reconnaissance de plaques via YOLOv8.</p>
+            <h3><span data-i18n="exp.e3.role">Détection de plaques d'immatriculation</span> <span class="role-badge" data-i18n="exp.badge.intern">Stage</span></h3>
+            <p class="tl-org" data-i18n="exp.e3.org">RODOK SARL · Liban</p>
+            <ul class="tl-bullets">
+              <li data-i18n="exp.e3.b1">Conception d'une chaîne de prétraitement d'images (filtrage, correction, normalisation) pour améliorer la qualité de détection.</li>
+              <li data-i18n="exp.e3.b2">Développement d'un pipeline YOLOv8 pour la localisation des plaques et l'extraction/reconnaissance des caractères (OCR).</li>
+            </ul>
             <div class="tag-list">
-              <span class="tag">YOLOv8</span>
-              <span class="tag">OCR</span>
-              <span class="tag">Python</span>
+              <span class="tag">YOLOv8</span><span class="tag">OCR</span><span class="tag">Python</span><span class="tag">OpenCV</span>
             </div>
           </div>
         </div>
+
         <div class="timeline-item reveal">
-          <div class="tl-marker accent-marker"></div>
-          <div class="tl-date">Mai — Août 2023</div>
+          <div class="tl-marker"></div>
+          <div class="tl-date mono" data-i18n="exp.e4.date">Mai 2023 — Août 2023</div>
           <div class="tl-content">
-            <h3>Système d'IA pour la santé <span class="role-badge">Stage</span></h3>
-            <p class="tl-org">Together for Chehim</p>
-            <p class="tl-desc">Classification de pathologies cardiaques à partir de signaux ECG. Mise en production d'un prototype de prédiction sur données patients réelles.</p>
+            <h3><span data-i18n="exp.e4.role">Système d'IA pour la santé</span> <span class="role-badge" data-i18n="exp.badge.intern">Stage</span></h3>
+            <p class="tl-org" data-i18n="exp.e4.org">Together for Chehim · Liban</p>
+            <ul class="tl-bullets">
+              <li data-i18n="exp.e4.b1">Conception de modèles de classification pour la détection de pathologies cardiaques à partir de signaux ECG.</li>
+              <li data-i18n="exp.e4.b2">Mise en production d'un prototype de prédiction sur données patients réelles : prétraitement, entraînement, validation.</li>
+            </ul>
             <div class="tag-list">
-              <span class="tag">ECG</span>
-              <span class="tag">Classification</span>
-              <span class="tag">TensorFlow</span>
+              <span class="tag">ECG</span><span class="tag">Machine Learning</span><span class="tag">Python</span>
             </div>
           </div>
         </div>
+
       </div>
     </div>
   </section>
 
-  <!-- PROJECTS -->
+  <!-- ══════════ PROJECTS ══════════ -->
   <section id="projects" class="section section-alt">
     <div class="section-inner">
-      <div class="section-label reveal">04 — Projets</div>
-      <h2 class="section-title reveal">Projets académiques &amp; personnels</h2>
+      <div class="section-label mono reveal"><span class="ch">CH·04</span><span data-i18n="proj.label">PROJETS</span></div>
+      <h2 class="section-title reveal" data-i18n="proj.title">Projets de recherche &amp; d'ingénierie</h2>
+
       <div class="projects-grid">
-        <div class="project-card reveal">
-          <div class="project-icon"><i class="fas fa-brain"></i></div>
-          <h3>ExpMedIa — Explicabilité en imagerie médicale</h3>
-          <p class="project-period">ENSTA · Sept. 2025 – Mars 2026</p>
-          <p>Développement et analyse de modèles deep learning (CheXNet, PYLON) pour l'imagerie médicale. Explicabilité via Grad-CAM, Grad-CAM++, LRP et Integrated Gradients.</p>
-          <div class="tag-list">
-            <span class="tag">XAI</span>
-            <span class="tag">Grad-CAM</span>
-            <span class="tag">LRP</span>
+
+        <article class="project-card reveal">
+          <div class="pc-head">
+            <span class="pc-id mono">P·01</span>
+            <span class="pc-period mono" data-i18n="proj.p1.date">Sept. 2025 — Mars 2026</span>
           </div>
-        </div>
-        <div class="project-card reveal">
-          <div class="project-icon"><i class="fas fa-microscope"></i></div>
-          <h3>Segmentation de tumeurs cérébrales</h3>
-          <p class="project-period">Projet personnel · Déc. 2024 – Juil. 2025</p>
-          <p>Modèle Transformers U-Net pour la segmentation de tumeurs cérébrales sur IRM multimodales (WT, TC, ET).</p>
+          <h3 data-i18n="proj.p1.title">ExpMedIa — Explicabilité en imagerie médicale</h3>
+          <p class="pc-context mono" data-i18n="proj.p1.ctx">ENSTA · Projet de recherche</p>
+          <p class="pc-desc" data-i18n="proj.p1.desc">Comment faire confiance à un diagnostic produit par un réseau profond ? Développement et analyse de modèles deep learning pour l'imagerie médicale (CheXNet, PYLON), puis explication de leurs décisions via Grad-CAM, Grad-CAM++, LRP et Integrated Gradients.</p>
           <div class="tag-list">
-            <span class="tag">Transformers</span>
-            <span class="tag">U-Net</span>
-            <span class="tag">IRM</span>
+            <span class="tag">XAI</span><span class="tag">CheXNet</span><span class="tag">PYLON</span><span class="tag">Grad-CAM++</span><span class="tag">Integrated Gradients</span>
           </div>
-        </div>
-        <div class="project-card reveal">
-          <div class="project-icon"><i class="fas fa-video"></i></div>
-          <h3>Surveillance multi-caméras</h3>
-          <p class="project-period">ENSTA · Sept. 2024 – Mai 2025</p>
-          <p>Système de détection d'objets via flux vidéo multi-caméras. Pipeline YOLOv10 + DeepSORT pour la détection et le suivi temps réel.</p>
+        </article>
+
+        <article class="project-card reveal">
+          <div class="pc-head">
+            <span class="pc-id mono">P·02</span>
+            <span class="pc-period mono" data-i18n="proj.p2.date">Déc. 2024 — Juil. 2025</span>
+          </div>
+          <h3 data-i18n="proj.p2.title">Segmentation de tumeurs cérébrales par Transformers</h3>
+          <p class="pc-context mono" data-i18n="proj.p2.ctx">Projet personnel</p>
+          <p class="pc-desc" data-i18n="proj.p2.desc">Modèle Transformers U-Net pour la segmentation de tumeurs cérébrales sur IRM multimodales, avec amélioration de la précision sur les sous-régions tumorales (WT, TC, ET).</p>
           <div class="tag-list">
-            <span class="tag">YOLOv10</span>
-            <span class="tag">DeepSORT</span>
-            <span class="tag">Temps réel</span>
+            <span class="tag">Transformers</span><span class="tag">U-Net</span><span class="tag">IRM</span><span class="tag">Segmentation</span>
           </div>
-        </div>
-        <div class="project-card reveal">
-          <div class="project-icon"><i class="fas fa-wave-square"></i></div>
-          <h3>Interface cerveau–ordinateur (BCI)</h3>
-          <p class="project-period">Université Libanaise · Mars – Juil. 2024</p>
-          <p>Algorithmes de traitement EEG pour réduire le bruit et améliorer l'extraction des caractéristiques. Optimisation de modèles ML sur données EEG.</p>
+        </article>
+
+        <article class="project-card reveal">
+          <div class="pc-head">
+            <span class="pc-id mono">P·03</span>
+            <span class="pc-period mono" data-i18n="proj.p3.date">Sept. 2024 — Mai 2025</span>
+          </div>
+          <h3 data-i18n="proj.p3.title">Surveillance multi-caméras temps réel</h3>
+          <p class="pc-context mono" data-i18n="proj.p3.ctx">ENSTA · Projet d'ingénierie</p>
+          <p class="pc-desc" data-i18n="proj.p3.desc">Système de surveillance détectant et suivant des objets sur flux vidéo multi-caméras. Pipeline YOLOv10 + DeepSORT optimisé pour la détection et le suivi en temps réel.</p>
           <div class="tag-list">
-            <span class="tag">EEG</span>
-            <span class="tag">BCI</span>
-            <span class="tag">ML</span>
+            <span class="tag">YOLOv10</span><span class="tag">DeepSORT</span><span class="tag" data-i18n="proj.p3.t3">Temps réel</span>
           </div>
-        </div>
+        </article>
+
+        <article class="project-card reveal">
+          <div class="pc-head">
+            <span class="pc-id mono">P·04</span>
+            <span class="pc-period mono" data-i18n="proj.p4.date">Mars 2024 — Juil. 2024</span>
+          </div>
+          <h3 data-i18n="proj.p4.title">Analyse EEG pour interface cerveau–ordinateur</h3>
+          <p class="pc-context mono" data-i18n="proj.p4.ctx">Université Libanaise · Recherche</p>
+          <p class="pc-desc" data-i18n="proj.p4.desc">Algorithmes de traitement du signal EEG pour réduire le bruit et améliorer l'extraction de caractéristiques, en collaboration avec des équipes de recherche pour optimiser des modèles d'apprentissage sur données EEG.</p>
+          <div class="tag-list">
+            <span class="tag">EEG</span><span class="tag">BCI</span><span class="tag" data-i18n="proj.p4.t3">Traitement du signal</span>
+          </div>
+        </article>
+
       </div>
     </div>
   </section>
 
-  <!-- PUBLICATIONS -->
+  <!-- ══════════ PUBLICATIONS ══════════ -->
   <section id="publications" class="section">
     <div class="section-inner">
-      <div class="section-label reveal">05 — Recherche</div>
-      <h2 class="section-title reveal">Publications</h2>
+      <div class="section-label mono reveal"><span class="ch">CH·05</span><span data-i18n="pub.label">RECHERCHE</span></div>
+      <h2 class="section-title reveal" data-i18n="pub.title">Publications</h2>
+      <p class="section-sub reveal" data-i18n="pub.sub">Travaux évalués par les pairs, publiés dans des conférences internationales IEEE.</p>
+
       <div class="pub-list">
         <a href="https://doi.org/10.1109/ICABME66883.2025.11211811" target="_blank" rel="noopener" class="pub-card reveal">
-          <div class="pub-meta">
+          <div class="pub-meta mono">
             <span class="pub-year">2025</span>
-            <span class="pub-venue">ICABME '25 · IEEE</span>
+            <span class="pub-venue">IEEE ICABME · Debbieh, Lebanon</span>
           </div>
           <h3 class="pub-title">Evaluating the Impact of EMD-Derived Intrinsic Mode Functions on Atrial Fibrillation Detection</h3>
-          <p class="pub-authors">H. Serhal, R. Saab, T. Abdallah, <strong>S. Youssef</strong> and A. H. Chehade</p>
-          <div class="pub-arrow"><i class="fas fa-arrow-up-right-from-square"></i></div>
+          <p class="pub-authors">H. Serhal, R. Saab, T. Abdallah, <strong>S. Youssef</strong>, A. H. Chehade</p>
+          <span class="pub-doi mono">DOI: 10.1109/ICABME66883.2025.11211811
+            <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </span>
         </a>
+
         <a href="https://doi.org/10.1109/ETECOM66111.2025.11319010" target="_blank" rel="noopener" class="pub-card reveal">
-          <div class="pub-meta">
+          <div class="pub-meta mono">
             <span class="pub-year">2025</span>
-            <span class="pub-venue">ETECOM '25 · IEEE</span>
+            <span class="pub-venue">IEEE ETECOM · Riffa, Bahrain</span>
           </div>
           <h3 class="pub-title">A Data-Augmented Deep Hybrid Model for Atrial Fibrillation Detection</h3>
-          <p class="pub-authors">H. Serhal, R. Saab, <strong>S. Youssef</strong>, T. Abdallah, A. H. Chehade and M. Abdallah</p>
-          <div class="pub-arrow"><i class="fas fa-arrow-up-right-from-square"></i></div>
+          <p class="pub-authors">H. Serhal, R. Saab, <strong>S. Youssef</strong>, T. Abdallah, A. H. Chehade, M. Abdallah</p>
+          <span class="pub-doi mono">DOI: 10.1109/ETECOM66111.2025.11319010
+            <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </span>
         </a>
       </div>
     </div>
   </section>
 
-  <!-- SKILLS -->
+  <!-- ══════════ SKILLS ══════════ -->
   <section id="skills" class="section section-alt">
     <div class="section-inner">
-      <div class="section-label reveal">06 — Compétences</div>
-      <h2 class="section-title reveal">Stack technique</h2>
-      <div class="skills-grid reveal">
-        <div class="skill-group">
-          <h3><i class="fas fa-code"></i> Programmation</h3>
+      <div class="section-label mono reveal"><span class="ch">CH·06</span><span data-i18n="skills.label">COMPÉTENCES</span></div>
+      <h2 class="section-title reveal" data-i18n="skills.title">Cartographie des capacités</h2>
+
+      <div class="skills-grid">
+        <div class="skill-group reveal">
+          <h3 class="mono" data-i18n="skills.g1">PROGRAMMATION</h3>
           <div class="tag-list">
-            <span class="tag">Python</span>
-            <span class="tag">Java</span>
-            <span class="tag">JavaScript</span>
-            <span class="tag">C / C++</span>
-            <span class="tag">C#</span>
-            <span class="tag">LaTeX</span>
+            <span class="tag">Python</span><span class="tag">C</span><span class="tag">C++</span><span class="tag">C#</span><span class="tag">Java</span><span class="tag">JavaScript</span><span class="tag">LaTeX</span>
           </div>
         </div>
-        <div class="skill-group">
-          <h3><i class="fas fa-robot"></i> IA &amp; Vision</h3>
+        <div class="skill-group reveal">
+          <h3 class="mono" data-i18n="skills.g2">IA &amp; VISION PAR ORDINATEUR</h3>
           <div class="tag-list">
-            <span class="tag">PyTorch</span>
-            <span class="tag">TensorFlow</span>
-            <span class="tag">MediaPipe</span>
-            <span class="tag">OpenCV</span>
-            <span class="tag">YOLO</span>
+            <span class="tag">PyTorch</span><span class="tag">TensorFlow</span><span class="tag">OpenCV</span><span class="tag">MediaPipe</span><span class="tag">CNN</span><span class="tag">Transformers</span><span class="tag">YOLO</span>
           </div>
         </div>
-        <div class="skill-group">
-          <h3><i class="fas fa-chart-line"></i> Traitement des données</h3>
+        <div class="skill-group reveal">
+          <h3 class="mono" data-i18n="skills.g3">SIGNAL &amp; DONNÉES</h3>
           <div class="tag-list">
-            <span class="tag">NumPy</span>
-            <span class="tag">Pandas</span>
-            <span class="tag">Matplotlib</span>
-            <span class="tag">scikit-learn</span>
+            <span class="tag">NumPy</span><span class="tag">Pandas</span><span class="tag">Matplotlib</span><span class="tag">GAF / MTF</span><span class="tag">EMD</span><span class="tag">ECG / EEG</span>
           </div>
         </div>
-        <div class="skill-group">
-          <h3><i class="fas fa-toolbox"></i> Outils</h3>
+        <div class="skill-group reveal">
+          <h3 class="mono" data-i18n="skills.g4">OUTILS DE DÉVELOPPEMENT</h3>
           <div class="tag-list">
-            <span class="tag">Git / GitHub</span>
-            <span class="tag">VS Code</span>
-            <span class="tag">Linux</span>
-            <span class="tag">Docker</span>
+            <span class="tag">Git</span><span class="tag">GitHub</span><span class="tag">VS Code</span><span class="tag">Spyder</span>
           </div>
         </div>
-        <div class="skill-group">
-          <h3><i class="fas fa-language"></i> Langues</h3>
+        <div class="skill-group reveal">
+          <h3 class="mono" data-i18n="skills.g5">SYSTÈMES D'EXPLOITATION</h3>
           <div class="tag-list">
-            <span class="tag">Français (C1)</span>
-            <span class="tag">Anglais (TOEIC 940)</span>
-            <span class="tag">Arabe (natif)</span>
+            <span class="tag">Linux</span><span class="tag">Windows</span><span class="tag">Windows Server</span>
+          </div>
+        </div>
+        <div class="skill-group reveal">
+          <h3 class="mono" data-i18n="skills.g6">LANGUES</h3>
+          <div class="tag-list">
+            <span class="tag" data-i18n="skills.lang.fr">Français — B2</span>
+            <span class="tag" data-i18n="skills.lang.en">Anglais — TOEIC 940/990</span>
+            <span class="tag" data-i18n="skills.lang.ar">Arabe — langue maternelle</span>
+          </div>
+        </div>
+        <div class="skill-group skill-wide reveal">
+          <h3 class="mono" data-i18n="skills.g7">R&amp;D &amp; COMPÉTENCES TRANSVERSES</h3>
+          <div class="tag-list">
+            <span class="tag" data-i18n="skills.soft.s1">Recherche &amp; développement</span>
+            <span class="tag" data-i18n="skills.soft.s2">Rédaction technique</span>
+            <span class="tag" data-i18n="skills.soft.s3">Gestion de projet</span>
+            <span class="tag" data-i18n="skills.soft.s4">Travail en équipe</span>
+            <span class="tag" data-i18n="skills.soft.s5">Autonomie</span>
+            <span class="tag" data-i18n="skills.soft.s6">Prise de décision</span>
+            <span class="tag" data-i18n="skills.soft.s7">Communication orale &amp; écrite</span>
+            <span class="tag" data-i18n="skills.soft.s8">Organisation</span>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- CONTACT -->
-  <section id="contact" class="section contact-section">
+  <!-- ══════════ CERTIFICATIONS ══════════ -->
+  <section id="certifications" class="section">
+    <div class="section-inner">
+      <div class="section-label mono reveal"><span class="ch">CH·07</span><span data-i18n="cert.label">CERTIFICATIONS</span></div>
+      <h2 class="section-title reveal" data-i18n="cert.title">Certifications</h2>
+
+      <div class="cert-grid">
+        <div class="cert-card reveal">
+          <span class="cert-icon" aria-hidden="true">◈</span>
+          <h3 data-i18n="cert.c1.title">AI and the Future of Youth</h3>
+          <p class="mono" data-i18n="cert.c1.org">Digital World AI</p>
+        </div>
+        <div class="cert-card reveal">
+          <span class="cert-icon" aria-hidden="true">◈</span>
+          <h3 data-i18n="cert.c2.title">Fondations du piratage éthique</h3>
+          <p class="mono" data-i18n="cert.c2.org">Semicolon Academy</p>
+        </div>
+        <div class="cert-card reveal">
+          <span class="cert-icon" aria-hidden="true">◈</span>
+          <h3 data-i18n="cert.c3.title">Python · Pandas · Intro au Machine Learning</h3>
+          <p class="mono" data-i18n="cert.c3.org">Kaggle</p>
+        </div>
+        <div class="cert-card reveal">
+          <span class="cert-icon" aria-hidden="true">◈</span>
+          <h3 data-i18n="cert.c4.title">Gestion de projet agile avec Scrum</h3>
+          <p class="mono" data-i18n="cert.c4.org">MOOC Gestion de Projet</p>
+        </div>
+        <div class="cert-card reveal">
+          <span class="cert-icon" aria-hidden="true">◈</span>
+          <h3 data-i18n="cert.c5.title">Outils et applications web pour la gestion de projet</h3>
+          <p class="mono" data-i18n="cert.c5.org">MOOC Gestion de Projet</p>
+        </div>
+        <div class="cert-card reveal">
+          <span class="cert-icon" aria-hidden="true">◈</span>
+          <h3 data-i18n="cert.c6.title">Tronc commun GdP24</h3>
+          <p class="mono" data-i18n="cert.c6.org">MOOC Gestion de Projet</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ CONTACT ══════════ -->
+  <section id="contact" class="section section-alt contact-section">
     <div class="section-inner contact-inner">
-      <div class="section-label reveal">07 — Contact</div>
-      <h2 class="section-title reveal">Travaillons ensemble.</h2>
-      <p class="contact-sub reveal">Ouvert aux collaborations, discussions de recherche &amp; thèses CIFRE.</p>
+      <div class="section-label mono reveal center"><span class="ch">CH·08</span><span data-i18n="contact.label">CONTACT</span></div>
+      <h2 class="section-title reveal" data-i18n="contact.title">Construisons l'IA de confiance de demain.</h2>
+      <p class="contact-sub reveal" data-i18n="contact.sub">Ouvert aux thèses CIFRE, collaborations de recherche, projets R&amp;D en IA et discussions scientifiques — n'hésitez pas à me contacter.</p>
+
       <div class="contact-links reveal">
         <a href="mailto:shakib.youssef@outlook.com" class="contact-link">
-          <i class="fas fa-envelope"></i><span>shakib.youssef@outlook.com</span>
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
+          <span>shakib.youssef@outlook.com</span>
         </a>
         <a href="https://www.linkedin.com/in/ShakibYoussef" target="_blank" rel="noopener" class="contact-link">
-          <i class="fab fa-linkedin"></i><span>LinkedIn</span>
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.55V9h3.57v11.45z"/></svg>
+          <span>LinkedIn</span>
         </a>
         <a href="https://github.com/shakib-svg" target="_blank" rel="noopener" class="contact-link">
-          <i class="fab fa-github"></i><span>GitHub</span>
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 .5A11.5 11.5 0 0 0 .5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56v-2.17c-3.2.7-3.87-1.37-3.87-1.37-.52-1.33-1.28-1.68-1.28-1.68-1.05-.72.08-.71.08-.71 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.05 11.05 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.12 3.05.74.81 1.18 1.83 1.18 3.09 0 4.41-2.69 5.38-5.25 5.67.41.35.78 1.05.78 2.12v3.14c0 .31.21.68.8.56A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5z"/></svg>
+          <span>GitHub</span>
         </a>
+        <span class="contact-link contact-loc">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span data-i18n="contact.loc">Lyon, France</span>
+        </span>
       </div>
+
+      <a href="Shakib_YOUSSEF_Cv.pdf" class="btn btn-primary btn-lg reveal" download>
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        <span data-i18n="contact.cv">Télécharger mon CV</span>
+      </a>
     </div>
   </section>
 
-  <!-- FOOTER -->
+  </main>
+
+  <!-- ══════════ FOOTER ══════════ -->
   <footer>
     <div class="footer-inner">
-      <span class="nav-logo">Sh.Y<span class="dot">.</span></span>
-      <p>&copy; 2026 Shakib Youssef — ENSTA Paris &middot; IFPEN Lyon</p>
+      <span class="nav-logo">Sh<span class="dot">·</span>Y</span>
+      <p class="mono" data-i18n="footer.line">© 2026 Shakib Youssef — ENSTA Paris · IFP Énergies Nouvelles</p>
+      <p class="footer-tag mono" data-i18n="footer.tag">signal → représentation → décision → explication</p>
     </div>
   </footer>
 
