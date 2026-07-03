@@ -33,10 +33,37 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,600&family=Source+Sans+3:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css">
+
+  <!-- Theme & icon -->
+  <meta name="theme-color" content="#f5f7fc">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20width='32'%20height='32'%20rx='7'%20fill='%231d56d6'/%3E%3Cpath%20d='M4%2016h4l3-8%204%2016%203-10%202%204h8'%20fill='none'%20stroke='white'%20stroke-width='2.2'%20stroke-linecap='round'%20stroke-linejoin='round'/%3E%3C/svg%3E">
+
+  <!-- Structured data (SEO) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Shakib Youssef",
+    "jobTitle": "Engineering student — Signal Processing & Deep Learning",
+    "affiliation": [
+      { "@type": "CollegeOrUniversity", "name": "ENSTA — Institut Polytechnique de Paris" },
+      { "@type": "Organization", "name": "IFP Énergies Nouvelles" }
+    ],
+    "email": "mailto:shakib.youssef@outlook.com",
+    "address": { "@type": "PostalAddress", "addressLocality": "Lyon", "addressCountry": "FR" },
+    "sameAs": [
+      "https://www.linkedin.com/in/ShakibYoussef",
+      "https://github.com/shakib-svg"
+    ],
+    "knowsAbout": ["Signal processing", "Deep learning", "Computer vision", "Anomaly detection", "Explainable AI", "Medical AI"]
+  }
+  </script>
 </head>
 <body>
 
   <a class="skip-link" href="#about" data-i18n="skip">Aller au contenu</a>
+
+  <div id="progress-bar" aria-hidden="true"></div>
 
   <!-- Ambient neural background -->
   <canvas id="bg-canvas" aria-hidden="true"></canvas>
@@ -58,6 +85,10 @@
       </ul>
 
       <div class="nav-tools">
+        <button class="theme-btn" id="theme-btn" aria-label="Basculer entre thème clair et sombre" aria-pressed="false" data-i18n-attr="aria-label:theme.toggle">
+          <svg class="icon-moon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        </button>
         <div class="lang-switch" role="group" aria-label="Choix de langue" data-i18n-attr="aria-label:lang.groupLabel">
           <button class="lang-btn" data-lang="fr" aria-label="Français"><span class="lang-flag">🇫🇷</span>FR</button>
           <button class="lang-btn" data-lang="en" aria-label="English"><span class="lang-flag">🇬🇧</span>EN</button>
@@ -136,7 +167,7 @@
     <div class="signal-monitor reveal" aria-hidden="true">
       <div class="monitor-head mono">
         <span><span class="mh-led"></span><span data-i18n="monitor.channel">SIG-01 · SÉRIE TEMPORELLE · TEMPS RÉEL</span></span>
-        <span class="mh-right" data-i18n="monitor.model">MODÈLE : AUTOENCODEUR · SEUIL ±2σ</span>
+        <span class="mh-right" data-i18n="monitor.model">MODÈLES : AUTOENCODEUR · PATCHCORE · PADIM</span>
       </div>
       <canvas id="signal-canvas"></canvas>
       <div class="monitor-legend mono">
@@ -163,7 +194,7 @@
       <div class="bio-grid">
         <div class="bio-text reveal">
           <p data-i18n="about.p1">Je suis <strong>Shakib Youssef</strong>, élève-ingénieur en dernière année à l'<strong>ENSTA — Institut Polytechnique de Paris</strong>, spécialisé en <strong>Conception des Systèmes Numériques</strong> : traitement du signal, deep learning et architectures neuronales.</p>
-          <p data-i18n="about.p2">Actuellement en stage de fin d'études chez <strong>IFP Énergies Nouvelles</strong> (Lyon), je développe des méthodes de <strong>détection d'anomalies non supervisée</strong> sur séries temporelles industrielles : encodage signal-vers-image (GAF, MTF), autoencodeurs convolutifs, et explicabilité par Grad-CAM et LRP.</p>
+          <p data-i18n="about.p2">Actuellement en stage de fin d'études chez <strong>IFP Énergies Nouvelles</strong> (Lyon), je développe des méthodes de <strong>détection d'anomalies non supervisée</strong> sur séries temporelles industrielles : encodage signal-vers-image (GAF, MTF), autoencodeurs convolutifs, méthodes par mémoire d'embeddings (PatchCore, PaDiM), et explicabilité par Grad-CAM et LRP.</p>
           <p data-i18n="about.p3">Mes travaux se situent à l'intersection du <strong>signal</strong> (audio, vocal, ECG, EEG), de l'<strong>imagerie</strong> (médicale, industrielle) et de l'<strong>IA de confiance</strong>. Je recherche une <strong>thèse CIFRE à partir d'octobre 2026</strong> pour approfondir ces axes entre recherche académique et impact industriel.</p>
         </div>
 
@@ -241,12 +272,13 @@
             <h3><span data-i18n="exp.e1.role">Vision par ordinateur &amp; IA pour la détection d'anomalies</span> <span class="role-badge" data-i18n="exp.badge.pfe">Stage de fin d'études</span></h3>
             <p class="tl-org" data-i18n="exp.e1.org">IFP Énergies Nouvelles · Lyon, France</p>
             <ul class="tl-bullets">
-              <li data-i18n="exp.e1.b1">Développement de modèles de détection d'anomalies sur séries temporelles industrielles par encodage signal-vers-image (GAF, MTF), autoencodeurs convolutifs et CNN.</li>
-              <li data-i18n="exp.e1.b2">Validation des approches sur données synthétiques (Tennessee Eastman Process) et données réelles de pilotes industriels.</li>
-              <li data-i18n="exp.e1.b3">Explicabilité des détections au niveau capteur via Grad-CAM et Layer-wise Relevance Propagation (LRP).</li>
+              <li data-i18n="exp.e1.b1">Développement de modèles de détection d'anomalies non supervisée sur séries temporelles industrielles par encodage signal-vers-image (GAF, MTF), autoencodeurs convolutifs et CNN.</li>
+              <li data-i18n="exp.e1.b2">Benchmark de méthodes par mémoire d'embeddings — PatchCore et PaDiM — face aux approches par reconstruction, sur les mêmes représentations image.</li>
+              <li data-i18n="exp.e1.b3">Validation des approches sur données synthétiques (Tennessee Eastman Process) et données réelles de pilotes industriels.</li>
+              <li data-i18n="exp.e1.b4">Explicabilité des détections au niveau capteur via Grad-CAM et Layer-wise Relevance Propagation (LRP).</li>
             </ul>
             <div class="tag-list">
-              <span class="tag">PyTorch</span><span class="tag">GAF / MTF</span><span class="tag">Autoencoders</span><span class="tag">CNN</span><span class="tag">Grad-CAM</span><span class="tag">LRP</span>
+              <span class="tag">PyTorch</span><span class="tag">GAF / MTF</span><span class="tag">Autoencoders</span><span class="tag">PatchCore</span><span class="tag">PaDiM</span><span class="tag">CNN</span><span class="tag">Grad-CAM</span><span class="tag">LRP</span>
             </div>
           </div>
         </div>
@@ -418,7 +450,7 @@
         <div class="skill-group reveal">
           <h3 class="mono" data-i18n="skills.g2">IA &amp; VISION PAR ORDINATEUR</h3>
           <div class="tag-list">
-            <span class="tag">PyTorch</span><span class="tag">TensorFlow</span><span class="tag">OpenCV</span><span class="tag">MediaPipe</span><span class="tag">CNN</span><span class="tag">Transformers</span><span class="tag">YOLO</span>
+            <span class="tag">PyTorch</span><span class="tag">TensorFlow</span><span class="tag">OpenCV</span><span class="tag">MediaPipe</span><span class="tag">CNN</span><span class="tag">Transformers</span><span class="tag">YOLO</span><span class="tag">PatchCore</span><span class="tag">PaDiM</span>
           </div>
         </div>
         <div class="skill-group reveal">
