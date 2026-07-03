@@ -39,6 +39,65 @@ function sanitizeMarkup(str) {
 }
 
 /* ─────────────────────────────────────────
+   0b. THEME (light default · dark opt-in)
+───────────────────────────────────────── */
+const THEME_KEY = 'sy-portfolio-theme';
+const THEMES = ['light', 'dark'];
+
+/* Canvas palettes, kept in sync with the CSS custom properties */
+const CANVAS_PALETTES = {
+  light: {
+    net: '29,86,214',                    /* ambient network rgb */
+    trace: '#1d56d6',                    /* nominal signal */
+    anom: '#e8590c',                     /* anomaly trace */
+    anomGlow: 'rgba(232,89,12,0.55)',
+    band: 'rgba(232,89,12,0.07)',
+    grid: 'rgba(16,31,66,0.07)',
+    thresh: 'rgba(16,31,66,0.30)',
+    flag: 'rgba(210,74,3,0.95)'
+  },
+  dark: {
+    net: '111,157,255',
+    trace: '#6f9dff',
+    anom: '#ffab5c',
+    anomGlow: 'rgba(255,171,92,0.7)',
+    band: 'rgba(255,171,92,0.07)',
+    grid: 'rgba(255,255,255,0.05)',
+    thresh: 'rgba(255,255,255,0.25)',
+    flag: 'rgba(255,171,92,0.95)'
+  }
+};
+let PALETTE = CANVAS_PALETTES.light;
+
+function applyTheme(theme) {
+  if (THEMES.indexOf(theme) === -1) theme = 'light';
+  document.documentElement.setAttribute('data-theme', theme);
+  PALETTE = CANVAS_PALETTES[theme];
+  const metaTheme = document.querySelector('meta[name="theme-color"]');
+  if (metaTheme) metaTheme.setAttribute('content', theme === 'dark' ? '#0a0e1a' : '#f5f7fc');
+  $$('.theme-btn').forEach(btn => btn.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false'));
+  storage.set(THEME_KEY, theme);
+  /* let canvases redraw their static frames if animations are off */
+  try { window.dispatchEvent(new CustomEvent('sy-theme')); } catch (_) { /* very old engines */ }
+}
+
+$$('.theme-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const cur = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+    applyTheme(cur === 'dark' ? 'light' : 'dark');
+  });
+});
+
+/* Restore: saved theme > OS preference > light */
+(function initTheme() {
+  const saved = storage.get(THEME_KEY);
+  if (saved) { applyTheme(saved); return; }
+  const prefersDark = window.matchMedia
+    && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  applyTheme(prefersDark ? 'dark' : 'light');
+})();
+
+/* ─────────────────────────────────────────
    1. TRANSLATIONS
 ───────────────────────────────────────── */
 const HTML_KEYS = new Set(['hero.name', 'about.p1', 'about.p2', 'about.p3']);
@@ -56,6 +115,7 @@ const TRANSLATIONS = {
     'nav.certifications': 'Certifications', 'nav.contact': 'Contact',
     'nav.cv': 'CV', 'nav.cvAria': 'Télécharger le CV (PDF)',
     'lang.groupLabel': 'Choix de la langue',
+    'theme.toggle': 'Basculer entre thème clair et sombre',
 
     'hero.status': 'Recherche une thèse CIFRE — octobre 2026',
     'hero.name': 'Shakib<br><em>Youssef</em>',
@@ -76,7 +136,7 @@ const TRANSLATIONS = {
     'hero.scroll': 'défiler',
 
     'monitor.channel': 'SIG-01 · SÉRIE TEMPORELLE · TEMPS RÉEL',
-    'monitor.model': 'MODÈLE : AUTOENCODEUR · SEUIL ±2σ',
+    'monitor.model': 'MODÈLES : AUTOENCODEUR · PATCHCORE · PADIM',
     'monitor.nominal': 'signal nominal',
     'monitor.anomaly': 'anomalie détectée',
     'monitor.threshold': 'seuil de reconstruction',
@@ -85,7 +145,7 @@ const TRANSLATIONS = {
     'about.label': 'À PROPOS',
     'about.title': 'Du signal brut à la décision interprétable',
     'about.p1': "Je suis <strong>Shakib Youssef</strong>, élève-ingénieur en dernière année à l'<strong>ENSTA — Institut Polytechnique de Paris</strong>, spécialisé en <strong>Conception des Systèmes Numériques</strong> : traitement du signal, deep learning et architectures neuronales.",
-    'about.p2': "Actuellement en stage de fin d'études chez <strong>IFP Énergies Nouvelles</strong> (Lyon), je développe des méthodes de <strong>détection d'anomalies non supervisée</strong> sur séries temporelles industrielles : encodage signal-vers-image (GAF, MTF), autoencodeurs convolutifs, et explicabilité par Grad-CAM et LRP.",
+    'about.p2': "Actuellement en stage de fin d'études chez <strong>IFP Énergies Nouvelles</strong> (Lyon), je développe des méthodes de <strong>détection d'anomalies non supervisée</strong> sur séries temporelles industrielles : encodage signal-vers-image (GAF, MTF), autoencodeurs convolutifs, méthodes par mémoire d'embeddings (PatchCore, PaDiM), et explicabilité par Grad-CAM et LRP.",
     'about.p3': "Mes travaux se situent à l'intersection du <strong>signal</strong> (audio, vocal, ECG, EEG), de l'<strong>imagerie</strong> (médicale, industrielle) et de l'<strong>IA de confiance</strong>. Je recherche une <strong>thèse CIFRE à partir d'octobre 2026</strong> pour approfondir ces axes entre recherche académique et impact industriel.",
     'about.s1': 'Institut Polytechnique de Paris',
     'about.s2': 'IFP Énergies Nouvelles — Lyon',
@@ -112,9 +172,10 @@ const TRANSLATIONS = {
     'exp.e1.date': 'Mars 2026 — Présent',
     'exp.e1.role': "Vision par ordinateur & IA pour la détection d'anomalies",
     'exp.e1.org': 'IFP Énergies Nouvelles · Lyon, France',
-    'exp.e1.b1': "Développement de modèles de détection d'anomalies sur séries temporelles industrielles par encodage signal-vers-image (GAF, MTF), autoencodeurs convolutifs et CNN.",
-    'exp.e1.b2': 'Validation des approches sur données synthétiques (Tennessee Eastman Process) et données réelles de pilotes industriels.',
-    'exp.e1.b3': 'Explicabilité des détections au niveau capteur via Grad-CAM et Layer-wise Relevance Propagation (LRP).',
+    'exp.e1.b1': "Développement de modèles de détection d'anomalies non supervisée sur séries temporelles industrielles par encodage signal-vers-image (GAF, MTF), autoencodeurs convolutifs et CNN.",
+    'exp.e1.b2': "Benchmark de méthodes par mémoire d'embeddings — PatchCore et PaDiM — face aux approches par reconstruction, sur les mêmes représentations image.",
+    'exp.e1.b3': 'Validation des approches sur données synthétiques (Tennessee Eastman Process) et données réelles de pilotes industriels.',
+    'exp.e1.b4': 'Explicabilité des détections au niveau capteur via Grad-CAM et Layer-wise Relevance Propagation (LRP).',
     'exp.e2.date': 'Mai 2025 — Sept. 2025',
     'exp.e2.role': "Capteurs de profondeur & IA pour l'estimation de pose",
     'exp.e2.org': 'Ivanae Medical / LaTIM · Brest, France',
@@ -213,6 +274,7 @@ const TRANSLATIONS = {
     'nav.certifications': 'Certifications', 'nav.contact': 'Contact',
     'nav.cv': 'CV', 'nav.cvAria': 'Download CV (PDF)',
     'lang.groupLabel': 'Language selection',
+    'theme.toggle': 'Toggle light/dark theme',
 
     'hero.status': 'Seeking a CIFRE PhD — October 2026',
     'hero.name': 'Shakib<br><em>Youssef</em>',
@@ -233,7 +295,7 @@ const TRANSLATIONS = {
     'hero.scroll': 'scroll',
 
     'monitor.channel': 'SIG-01 · TIME SERIES · LIVE',
-    'monitor.model': 'MODEL: AUTOENCODER · THRESHOLD ±2σ',
+    'monitor.model': 'MODELS: AUTOENCODER · PATCHCORE · PADIM',
     'monitor.nominal': 'nominal signal',
     'monitor.anomaly': 'anomaly detected',
     'monitor.threshold': 'reconstruction threshold',
@@ -242,7 +304,7 @@ const TRANSLATIONS = {
     'about.label': 'ABOUT',
     'about.title': 'From raw signals to interpretable decisions',
     'about.p1': "I am <strong>Shakib Youssef</strong>, a final-year engineering student at <strong>ENSTA — Institut Polytechnique de Paris</strong>, specializing in <strong>Digital Systems Design</strong>: signal processing, deep learning and neural architectures.",
-    'about.p2': "I am currently completing my graduation internship at <strong>IFP Énergies Nouvelles</strong> (Lyon), developing <strong>unsupervised anomaly detection</strong> methods for industrial time series: signal-to-image encoding (GAF, MTF), convolutional autoencoders, and explainability with Grad-CAM and LRP.",
+    'about.p2': "I am currently completing my graduation internship at <strong>IFP Énergies Nouvelles</strong> (Lyon), developing <strong>unsupervised anomaly detection</strong> methods for industrial time series: signal-to-image encoding (GAF, MTF), convolutional autoencoders, embedding memory-bank methods (PatchCore, PaDiM), and explainability with Grad-CAM and LRP.",
     'about.p3': "My work sits at the intersection of <strong>signals</strong> (audio, voice, ECG, EEG), <strong>imaging</strong> (medical, industrial) and <strong>trustworthy AI</strong>. I am seeking a <strong>CIFRE PhD starting October 2026</strong> to pursue these directions between academic research and industrial impact.",
     'about.s1': 'Institut Polytechnique de Paris',
     'about.s2': 'IFP Énergies Nouvelles — Lyon',
@@ -269,9 +331,10 @@ const TRANSLATIONS = {
     'exp.e1.date': 'March 2026 — Present',
     'exp.e1.role': 'Computer vision & AI for anomaly detection',
     'exp.e1.org': 'IFP Énergies Nouvelles · Lyon, France',
-    'exp.e1.b1': 'Developing anomaly detection models for industrial time series through signal-to-image encoding (GAF, MTF), convolutional autoencoders and CNNs.',
-    'exp.e1.b2': 'Validating the proposed approaches on synthetic data (Tennessee Eastman Process) and real data from industrial pilot units.',
-    'exp.e1.b3': 'Sensor-level explainability of detections via Grad-CAM and Layer-wise Relevance Propagation (LRP).',
+    'exp.e1.b1': 'Developing unsupervised anomaly detection models for industrial time series through signal-to-image encoding (GAF, MTF), convolutional autoencoders and CNNs.',
+    'exp.e1.b2': 'Benchmarking embedding memory-bank methods — PatchCore and PaDiM — against reconstruction-based approaches on the same image representations.',
+    'exp.e1.b3': 'Validating the proposed approaches on synthetic data (Tennessee Eastman Process) and real data from industrial pilot units.',
+    'exp.e1.b4': 'Sensor-level explainability of detections via Grad-CAM and Layer-wise Relevance Propagation (LRP).',
     'exp.e2.date': 'May 2025 — Sept. 2025',
     'exp.e2.role': 'Depth sensors & AI for pose estimation',
     'exp.e2.org': 'Ivanae Medical / LaTIM · Brest, France',
@@ -370,6 +433,7 @@ const TRANSLATIONS = {
     'nav.certifications': 'الشهادات', 'nav.contact': 'التواصل',
     'nav.cv': 'السيرة', 'nav.cvAria': 'تنزيل السيرة الذاتية (PDF)',
     'lang.groupLabel': 'اختيار اللغة',
+    'theme.toggle': 'التبديل بين الوضع الفاتح والداكن',
 
     'hero.status': 'أبحث عن أطروحة دكتوراه CIFRE — أكتوبر 2026',
     'hero.name': 'شكيب<br><em>يوسف</em>',
@@ -390,7 +454,7 @@ const TRANSLATIONS = {
     'hero.scroll': 'مرّر',
 
     'monitor.channel': 'SIG-01 · سلسلة زمنية · بث مباشر',
-    'monitor.model': 'النموذج: Autoencoder · العتبة ±2σ',
+    'monitor.model': 'النماذج: Autoencoder · PatchCore · PaDiM',
     'monitor.nominal': 'إشارة طبيعية',
     'monitor.anomaly': 'تم كشف شذوذ',
     'monitor.threshold': 'عتبة إعادة البناء',
@@ -399,7 +463,7 @@ const TRANSLATIONS = {
     'about.label': 'نبذة عني',
     'about.title': 'من الإشارة الخام إلى القرار القابل للتفسير',
     'about.p1': 'أنا <strong>شكيب يوسف</strong>، طالب هندسة في السنة الأخيرة في <strong>ENSTA — معهد باريس التقني المتعدد</strong>، متخصص في <strong>تصميم الأنظمة الرقمية</strong>: معالجة الإشارات والتعلّم العميق والبنى العصبونية.',
-    'about.p2': 'أُجري حالياً تدريب التخرّج في <strong>IFP Énergies Nouvelles</strong> (ليون، فرنسا)، حيث أطوّر أساليب <strong>كشف الشذوذ غير الموجَّه</strong> على السلاسل الزمنية الصناعية: ترميز الإشارة إلى صورة (GAF, MTF)، والمشفّرات الذاتية التلافيفية، وقابلية التفسير عبر Grad-CAM وLRP.',
+    'about.p2': 'أُجري حالياً تدريب التخرّج في <strong>IFP Énergies Nouvelles</strong> (ليون، فرنسا)، حيث أطوّر أساليب <strong>كشف الشذوذ غير الموجَّه</strong> على السلاسل الزمنية الصناعية: ترميز الإشارة إلى صورة (GAF, MTF)، والمشفّرات الذاتية التلافيفية، وأساليب ذاكرة التضمينات (PatchCore, PaDiM)، وقابلية التفسير عبر Grad-CAM وLRP.',
     'about.p3': 'تقع أعمالي عند تقاطع <strong>الإشارات</strong> (الصوت، الكلام، ECG، EEG) و<strong>التصوير</strong> (الطبي والصناعي) و<strong>الذكاء الاصطناعي الموثوق</strong>. أبحث عن <strong>أطروحة دكتوراه CIFRE ابتداءً من أكتوبر 2026</strong> لتعميق هذه المحاور بين البحث الأكاديمي والأثر الصناعي.',
     'about.s1': 'معهد باريس التقني المتعدد',
     'about.s2': 'IFP Énergies Nouvelles — ليون',
@@ -426,9 +490,10 @@ const TRANSLATIONS = {
     'exp.e1.date': 'مارس 2026 — حتى الآن',
     'exp.e1.role': 'الرؤية الحاسوبية والذكاء الاصطناعي لكشف الشذوذ',
     'exp.e1.org': 'IFP Énergies Nouvelles · ليون، فرنسا',
-    'exp.e1.b1': 'تطوير نماذج كشف الشذوذ على السلاسل الزمنية الصناعية عبر ترميز الإشارة إلى صورة (GAF, MTF) والمشفّرات الذاتية التلافيفية وشبكات CNN.',
-    'exp.e1.b2': 'التحقق من الأساليب المقترحة على بيانات اصطناعية (Tennessee Eastman Process) وبيانات حقيقية من وحدات صناعية تجريبية.',
-    'exp.e1.b3': 'قابلية تفسير الكشف على مستوى الحسّاسات عبر Grad-CAM وLRP.',
+    'exp.e1.b1': 'تطوير نماذج كشف الشذوذ غير الموجَّه على السلاسل الزمنية الصناعية عبر ترميز الإشارة إلى صورة (GAF, MTF) والمشفّرات الذاتية التلافيفية وشبكات CNN.',
+    'exp.e1.b2': 'مقارنة أداء أساليب ذاكرة التضمينات — PatchCore وPaDiM — مع الأساليب القائمة على إعادة البناء على التمثيلات الصورية نفسها.',
+    'exp.e1.b3': 'التحقق من الأساليب المقترحة على بيانات اصطناعية (Tennessee Eastman Process) وبيانات حقيقية من وحدات صناعية تجريبية.',
+    'exp.e1.b4': 'قابلية تفسير الكشف على مستوى الحسّاسات عبر Grad-CAM وLRP.',
     'exp.e2.date': 'مايو 2025 — سبتمبر 2025',
     'exp.e2.role': 'حسّاسات العمق والذكاء الاصطناعي لتقدير وضعية الجسم',
     'exp.e2.org': 'Ivanae Medical / LaTIM · بريست، فرنسا',
@@ -708,7 +773,7 @@ updateActiveLink();
       }
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(242,167,27,' + p.a + ')';
+      ctx.fillStyle = 'rgba(' + PALETTE.net + ',' + p.a + ')';
       ctx.fill();
     }
 
@@ -723,7 +788,7 @@ updateActiveLink();
           ctx.beginPath();
           ctx.moveTo(nodes[i].x, nodes[i].y);
           ctx.lineTo(nodes[j].x, nodes[j].y);
-          ctx.strokeStyle = 'rgba(242,167,27,' + (0.05 * (1 - d / MAX_D)).toFixed(4) + ')';
+          ctx.strokeStyle = 'rgba(' + PALETTE.net + ',' + (0.06 * (1 - d / MAX_D)).toFixed(4) + ')';
           ctx.lineWidth = 0.5;
           ctx.stroke();
         }
@@ -740,6 +805,8 @@ updateActiveLink();
 
   resize();
   build();
+
+  window.addEventListener('sy-theme', () => { if (reducedMotion || rafId === null) frame(false); });
 
   if (reducedMotion) {
     frame(false);               /* one static frame */
@@ -765,9 +832,6 @@ updateActiveLink();
   if (!canvas || typeof canvas.getContext !== 'function') return;
   const ctx = canvas.getContext('2d');
   if (!ctx) return;
-
-  const AMBER = '#f2a71b';
-  const TEAL = '#45d6c5';
 
   let W = 0, H = 0, dpr = 1;
   let points = [];              /* { v: value in [-1,1], anomaly: bool } */
@@ -820,7 +884,7 @@ updateActiveLink();
     const thr = amp * 0.72;    /* visual ±2σ threshold */
 
     /* faint horizontal grid */
-    ctx.strokeStyle = 'rgba(255,255,255,0.045)';
+    ctx.strokeStyle = PALETTE.grid;
     ctx.lineWidth = 1;
     for (let gy = 1; gy < 4; gy++) {
       const y = (H / 4) * gy;
@@ -828,7 +892,7 @@ updateActiveLink();
     }
 
     /* dashed thresholds */
-    ctx.strokeStyle = 'rgba(255,255,255,0.22)';
+    ctx.strokeStyle = PALETTE.thresh;
     ctx.setLineDash([5, 6]);
     ctx.beginPath(); ctx.moveTo(0, mid - thr); ctx.lineTo(W, mid - thr); ctx.stroke();
     ctx.beginPath(); ctx.moveTo(0, mid + thr); ctx.lineTo(W, mid + thr); ctx.stroke();
@@ -837,7 +901,7 @@ updateActiveLink();
     /* anomaly bands behind the trace */
     for (let i = 0; i < points.length; i++) {
       if (points[i].anomaly) {
-        ctx.fillStyle = 'rgba(69,214,197,0.07)';
+        ctx.fillStyle = PALETTE.band;
         ctx.fillRect(i * 2, 0, 2, H);
       }
     }
@@ -852,10 +916,10 @@ updateActiveLink();
       ctx.beginPath();
       ctx.moveTo(x0, y0);
       ctx.lineTo(x1, y1);
-      ctx.strokeStyle = anom ? TEAL : AMBER;
+      ctx.strokeStyle = anom ? PALETTE.anom : PALETTE.trace;
       ctx.lineWidth = anom ? 2 : 1.6;
       ctx.shadowBlur = anom ? 9 : 0;
-      ctx.shadowColor = anom ? 'rgba(69,214,197,0.8)' : 'transparent';
+      ctx.shadowColor = anom ? PALETTE.anomGlow : 'transparent';
       ctx.stroke();
       if (anom) lastAnomalyX = x1;
     }
@@ -867,7 +931,7 @@ updateActiveLink();
       ctx.font = '600 9px "JetBrains Mono", monospace';
       const tw = ctx.measureText(label).width;
       let lx = Math.min(lastAnomalyX + 6, W - tw - 10);
-      ctx.fillStyle = 'rgba(69,214,197,0.95)';
+      ctx.fillStyle = PALETTE.flag;
       ctx.fillText(label, lx, 14);
     }
 
@@ -877,7 +941,7 @@ updateActiveLink();
       const hy = mid - points[points.length - 1].v * amp;
       ctx.beginPath();
       ctx.arc(hx, hy, 2.6, 0, Math.PI * 2);
-      ctx.fillStyle = points[points.length - 1].anomaly ? TEAL : AMBER;
+      ctx.fillStyle = points[points.length - 1].anomaly ? PALETTE.anom : PALETTE.trace;
       ctx.fill();
     }
   }
@@ -899,6 +963,8 @@ updateActiveLink();
   for (let i = 0; i < prefill; i++) points.push(nextValue());
   draw();
 
+  window.addEventListener('sy-theme', draw);
+
   if (!reducedMotion) {
     if ('IntersectionObserver' in window) {
       new IntersectionObserver(entries => {
@@ -917,4 +983,25 @@ updateActiveLink();
     window.clearTimeout(resizeTimer);
     resizeTimer = window.setTimeout(() => { resize(); draw(); }, 150);
   });
+})();
+
+/* ─────────────────────────────────────────
+   8. READING PROGRESS BAR
+───────────────────────────────────────── */
+(function progressBar() {
+  const bar = $('#progress-bar');
+  if (!bar) return;
+  let tick = false;
+  function update() {
+    tick = false;
+    const doc = document.documentElement;
+    const max = Math.max(doc.scrollHeight - window.innerHeight, 1);
+    const pct = Math.min(Math.max(window.scrollY / max, 0), 1) * 100;
+    bar.style.width = pct.toFixed(2) + '%';
+  }
+  window.addEventListener('scroll', () => {
+    if (!tick) { tick = true; window.requestAnimationFrame(update); }
+  }, { passive: true });
+  window.addEventListener('resize', update, { passive: true });
+  update();
 })();
